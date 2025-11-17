@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - FileHandler</title>
+
+    @* Підключаємо наш головний файл стилів *@
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1>FileHandler</h1>
+            <p>Підсвічування ключових слів у PDF та HTML</p>
+        </div>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            &copy; @DateTime.Now.Year - FileHandler Project
+        </div>
+    </footer>
+
+    @* Скрипти, потрібні для MVC (напр. валідація) *@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @* "Кишеня" для скриптів, які ми додамо у Index.cshtml *@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

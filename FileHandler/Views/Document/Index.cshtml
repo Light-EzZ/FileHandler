@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Завантаження файлу";
+}
+
+@using (Html.BeginForm("Index", "Document", FormMethod.Post, new { @class = "upload-card", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h2>1. Оберіть файл та ключові слова</h2>
+    <p>Система знайде всі входження слів у вашому PDF або HTML файлі та виділить їх жовтим кольором.</p>
+
+    <hr />
+
+    @* Поле для ключових слів *@
+    <div class="form-group">
+        @Html.Label("keywords", "Ключові слова (через пробіл)")
+        @Html.TextBox("keywords", null, new { @class = "form-control", placeholder = "наприклад: контракт договір додаток" })
+    </div>
+
+    @* Чекбокс  *@
+    <div class="form-group-checkbox">
+        @Html.CheckBox("caseSensitive", true)
+        @Html.Label("caseSensitive", "Враховувати регістр")
+    </div>
+
+    <div class="form-group">
+        <label>Оберіть файл (.pdf або .html)</label>
+        <div class="file-upload-wrapper">
+            
+            <input type="file" name="fileUpload" id="fileUpload" class="file-input" />
+
+           
+            <label for="fileUpload" class="file-upload-button">
+                <span>📂</span> Обрати файл...
+            </label>
+
+            <span id="fileNameDisplay" class="file-name">Файл не обрано</span>
+        </div>
+    </div>
+
+    <div id="clientSideError" class="error-message-client" style="display:none;"></div>
+
+
+  
+    <div class="form-group submit-group">
+      
+        <button type="submit" id="submitButton" class="submit-button">Обробити та Завантажити</button>
+    </div>
+
+
+   
+    if (ViewBag.ErrorMessage != null)
+    {
+        
+        <div class="error-message-server">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+}
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+           
+            var MAX_FILE_SIZE = 128000000; 
+
+            
+            var submitButton = $('#submitButton');
+            var fileInput = $('#fileUpload');
+            var errorDisplay = $('#clientSideError');
+            var fileNameDisplay = $('#fileNameDisplay');
+
+            fileInput.on('change', function () {
+
+               
+                if (this.files && this.files.length > 0) {
+                    var file = this.files[0];
+                    var fileName = file.name;
+
+                   
+                    if (file.size > MAX_FILE_SIZE) {
+                      
+                        fileNameDisplay.text(fileName);
+                        errorDisplay.text('Помилка: Файл "' + fileName + '" занадто великий! Ліміт 128 MB.');
+                        errorDisplay.show();
+
+                        submitButton.prop('disabled', true); 
+                        submitButton.addClass('disabled'); 
+                    }
+                    else {
+                        
+                        fileNameDisplay.text(fileName);
+                        errorDisplay.hide(); 
+
+                        submitButton.prop('disabled', false); 
+                        submitButton.removeClass('disabled');
+                    }
+                }
+                else {
+                    
+                    fileNameDisplay.text('Файл не обрано');
+                    errorDisplay.hide();
+                    submitButton.prop('disabled', false); 
+                    submitButton.removeClass('disabled');
+                }
+            });
+        });
+    </script>
+}

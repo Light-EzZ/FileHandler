@@ -1,0 +1,225 @@
+﻿
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+/* === Загальні налаштування === */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f7f6; 
+    color: #333;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* === Шапка === */
+.main-header {
+    background-color: #ffffff;
+    padding: 20px 0;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+}
+
+    .main-header h1 {
+        color: #2c3e50;
+        margin: 0;
+    }
+
+    .main-header p {
+        font-size: 1.1rem;
+        color: #7f8c8d;
+        margin: 0;
+    }
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    min-height: calc(100vh - 200px);
+}
+
+/* Картка Завантаження */
+.upload-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    padding: 30px 40px;
+    width: 100%;
+    max-width: 600px; 
+    box-sizing: border-box; 
+}
+
+    .upload-card h2 {
+        text-align: center;
+        margin-top: 0;
+        color: #2c3e50;
+    }
+
+    .upload-card hr {
+        border: 0;
+        height: 1px;
+        background-color: #eee;
+        margin: 20px 0;
+    }
+
+/*  Стилі для полів форми */
+.form-group {
+    margin-bottom: 25px;
+}
+
+    .form-group label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #555;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box; 
+    transition: border-color 0.2s;
+}
+
+    .form-control:focus {
+        border-color: #3498db;
+        outline: none;
+    }
+
+
+.file-upload-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+
+.file-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+
+.file-upload-button {
+    background-color: #ecf0f1;
+    color: #34495e;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap; 
+}
+
+    .file-upload-button:hover {
+        background-color: #bdc3c7;
+    }
+
+
+.file-name {
+    margin-left: 15px;
+    font-style: italic;
+    color: #7f8c8d;
+    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+.submit-group {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.submit-button {
+    background-color: #27ae60; 
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+    .submit-button:hover {
+        background-color: #2ecc71;
+    }
+
+
+.error-message {
+    text-align: center;
+    color: #e74c3c; 
+    background-color: #fbeee padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* Футер*/
+.main-footer {
+    text-align: center;
+    padding: 28px 0;
+    background-color:lightgray;
+    border-top: 1px solid #e0e0e0;
+    color: #999;
+}
+.submit-button.disabled,
+.submit-button:disabled {
+    background-color: #95a5a6; 
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+
+
+
+
+.error-message-server {
+    text-align: center;
+    color: #e74c3c; 
+    background-color: #fbeee;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 15px; 
+}
+
+
+.error-message-client {
+    text-align: center;
+    color: #e74c3c; 
+    background-color: #fbeee;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 15px;
+}
