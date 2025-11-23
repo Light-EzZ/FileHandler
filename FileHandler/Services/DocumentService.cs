@@ -62,7 +62,6 @@ namespace FileHandler.Services
             if (string.IsNullOrWhiteSpace(keywords))
                 return ReadStreamToBytes(fileStream);
 
-            // Розбиваємо ключові слова по пробілу 
             string[] allKeywords = keywords
                 .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -72,48 +71,46 @@ namespace FileHandler.Services
 
                 foreach (PdfPageBase page in doc.Pages)
                 {
-                    //  Витягуємо текст сторінки
-                    string pageText = page.ExtractText(); 
+                    string pageText = page.ExtractText();
+                    if (string.IsNullOrEmpty(pageText)) continue;
 
-                    if (string.IsNullOrEmpty(pageText))
-                        continue;
+                
+                    HashSet<string> wordsToHighlight = new HashSet<string>(); // Створюємо HashSet тому що він не допускає дублікати 
+                    //Однак це не стосується моментів, коли користувач буде шукати Ціле слово і його частину одночасно.Це призведе до подвійного виділення входження
 
                     foreach (string keyword in allKeywords)
                     {
-                        if (string.IsNullOrWhiteSpace(keyword))
-                            continue;
+                        if (string.IsNullOrWhiteSpace(keyword)) continue;
 
-                       
                         string pattern = Regex.Escape(keyword);
-
-                       
                         var regexOptions = caseSensitive ? RegexOptions.None : RegexOptions.IgnoreCase;
 
-                        // Усі входження
+                        
                         var matches = Regex.Matches(pageText, pattern, regexOptions);
-                        if (matches.Count == 0)
-                            continue;
 
                         foreach (Match m in matches)
                         {
-                          
-                            string foundText = m.Value;
+                            
+                            wordsToHighlight.Add(m.Value);
+                        }
+                    }
 
-                           
-                            var textFinds = page.FindText(foundText, false);
+                    //  викликаємо FindText один раз для кожного унікального входження
+                    foreach (string word in wordsToHighlight)
+                    {
+                       
 
-                            if (textFinds?.Finds == null)
-                                continue;
+                        var textFinds = page.FindText(word, false, false); 
 
-                            foreach (var find in textFinds.Finds)
-                            {
-                                find.ApplyHighLight(System.Drawing.Color.Yellow);
-                            }
+                        if (textFinds?.Finds == null) continue;
+
+                        foreach (var find in textFinds.Finds)
+                        {
+                            find.ApplyHighLight(System.Drawing.Color.Yellow);
                         }
                     }
                 }
 
-                // Зберігаємо і повертаємо 
                 using (MemoryStream ms = new MemoryStream())
                 {
                     doc.SaveToStream(ms, FileFormat.PDF);
